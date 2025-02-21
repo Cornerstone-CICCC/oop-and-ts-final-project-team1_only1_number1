@@ -1,0 +1,69 @@
+---
+import { add } from "./../ts/sample.ts";
+console.log(add(4, 5));
+---
+
+<div id="container">
+  <div class="board-wrap">
+    <!-- todo -->
+    <div class="board todo">
+      <h3>TODO</h3>
+      <!-- individaul task -->
+      <div class="task">
+        <!-- title, description... -->
+        <h4>Task Title</h4>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque,
+          aperiam.
+        </p>
+      </div>
+      <!-- individaul task -->
+    </div>
+    <!-- // todo -->
+
+    <!-- progress -->
+    <div class="board progress">
+      <h3>PROGRESS</h3>
+    </div>
+    <!-- // progress -->
+
+    <!-- done -->
+    <div class="board done">
+      <h3>DONE</h3>
+    </div>
+    <!-- // done -->
+  </div>
+</div>
+
+<style>
+  #container {
+    height: calc(100vh - 100px); /* templorary */
+  }
+  .board-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    height: 100%; /* templorary */
+  }
+  .board {
+    padding: 8px;
+  }
+  .board.todo {
+    background-color: #f2bd19;
+  }
+  .board.progress {
+    background-color: #f23f41;
+  }
+  .board.done {
+    background-color: #0bbf8e;
+  }
+  .board h3 {
+    color: #fff;
+  }
+  .task {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    color: #000;
+  }
+</style>

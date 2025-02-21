@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", serif;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, address, del, dfn, em, img, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, figcaption, footer, header, menu, nav, section, summary {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+html {
+  font-size: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+}
+ol, ul, li {
+  list-style: none;
+}
+a, img {
+  vertical-align: top;
+}
+a, a:link, a:visited {
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+}
+a:hover {
+  text-decoration: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+input, textarea, button, select {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  appearance: none;
+  outline: none;
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+select::-ms-expand {
+  display: none;
+}
+textarea {
+  border-width: 0;
+  resize: none;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+fieldset {
+  min-width: 0;
+}
+button {
+  display: block;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent};
+legend, caption, .blind {
+  overflow: hidden;
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+}
+i {
+  font-style: normal;
+}
+hr {
+  display: none;
+}
+
+ul, ol, li {
+  list-style: none;
+}
+
+.a11y-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: polygon(0 0, 0 0, 0 0);
+}
