@@ -1,35 +1,48 @@
 ---
+import "./../styles/task.css";
 import { add } from "./../ts/sample.ts";
-console.log(add(4, 5));
 ---
 
 <div id="container">
+  <!-- Search -->
+
   <div class="board-wrap">
     <!-- todo -->
     <div class="board todo">
       <h3>TODO</h3>
-      <!-- individaul task -->
-      <div class="task">
-        <!-- title, description... -->
-        <h4>Task Title</h4>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque,
-          aperiam.
-        </p>
+      <div class="task-zone">
+        <!-- individaul task -->
       </div>
-      <!-- individaul task -->
+      <div>
+        <!-- click this button open modal -->
+        <button>Add Task</button>
+      </div>
     </div>
     <!-- // todo -->
 
     <!-- progress -->
     <div class="board progress">
       <h3>PROGRESS</h3>
+      <div class="task-zone">
+        <!-- individaul task -->
+      </div>
+      <div>
+        <!-- click this button open modal -->
+        <button>Add Task</button>
+      </div>
     </div>
     <!-- // progress -->
 
     <!-- done -->
     <div class="board done">
       <h3>DONE</h3>
+      <div class="task-zone">
+        <!-- individaul task -->
+      </div>
+      <div>
+        <!-- click this button open modal -->
+        <button>Add Task</button>
+      </div>
     </div>
     <!-- // done -->
   </div>
@@ -59,11 +72,5 @@ console.log(add(4, 5));
   }
   .board h3 {
     color: #fff;
-  }
-  .task {
-    background-color: #fff;
-    border-radius: 16px;
-    padding: 16px;
-    color: #000;
   }
 </style>
