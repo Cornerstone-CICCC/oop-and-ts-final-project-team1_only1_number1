@@ -1,3 +1,5 @@
+import { dragAndDrop } from "./DragDrop";
+
 type Task = {
   id: number;
   name: string;
@@ -56,6 +58,9 @@ class TaskManage {
     enableTaskEditing();
     //for fake delete modal
     enableTaskDeletion();
+
+    //for drag and drop
+    dragAndDrop();
   }
 
   private generateTaskHtml(status: Task["status"]): string {
@@ -63,7 +68,7 @@ class TaskManage {
       .map(
         (
           task
-        ) => `<li class="task" data-id=${task.id}>${task.name}<br>${task.description}<br><button class="delete-task-btn" data-id="${task.id}">🗑</button>
+        ) => `<li class="task" data-id=${task.id} draggable="true" data-task>${task.name}<br>${task.description}<br><button class="delete-task-btn" data-id="${task.id}">🗑</button>
 </li>`
       )
       .join("");
