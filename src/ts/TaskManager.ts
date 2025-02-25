@@ -1,13 +1,13 @@
 import { dragAndDrop } from "./DragDrop";
 
-type Task = {
+export type Task = {
   id: number;
   name: string;
   status: "To Do" | "Progress" | "Done";
   description: string;
 };
 
-class TaskManage {
+export class TaskManage {
   private tasks: Task[] = [];
   private taskIdCounter: number = 1;
 
@@ -77,7 +77,7 @@ class TaskManage {
 }
 
 // create instance
-const taskService = new TaskManage();
+export const taskService = new TaskManage();
 
 // fake add modal
 function addNewTask(status: Task["status"]): void {
