@@ -4,7 +4,7 @@ import "../ts/Modal.ts"
 ---
 
 <div class="modal">
-    <div class="modal-content">
+    <div class="modal-filling">
         <div class="modal-upbar">
             <div class="modal-task">
                 <h2 class="modal-task-title">CREATE THE BEST MODAL</h2>
@@ -26,7 +26,9 @@ import "../ts/Modal.ts"
 <style>
     .modal{
         color: #000000;
-        display: flex;
+        /* display: none;
+        position: fixed;
+        z-index: 1; */
         flex-direction: column;
         background-color: white;
         max-width: 90%;
@@ -76,7 +78,7 @@ import "../ts/Modal.ts"
         flex-direction: column;
         align-items: center;
         gap: 1rem;
-        margin: 1rem;
+        margin: 1rem 0;
     }
 
     .btn {

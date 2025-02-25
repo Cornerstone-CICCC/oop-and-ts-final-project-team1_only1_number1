@@ -1,17 +1,18 @@
-class Modal {
+export class Modal {
     constructor() {
-        
+
     }
 
     createTask() {
-
+        console.log("create")
     }
 
-    viewTask(id: number) {
-        
+    viewTask() {
+        console.log("view")
     }
 
-    editTask(id: number) {
-
+    editTask() {
+        console.log("edit")
     }
 }
+
