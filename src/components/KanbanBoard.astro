@@ -1,6 +1,5 @@
 ---
 import "./../styles/task.css";
-import { add } from "./../ts/sample.ts";
 ---
 
 <div id="container">
@@ -10,12 +9,12 @@ import { add } from "./../ts/sample.ts";
     <!-- todo -->
     <div class="board todo">
       <h3>TODO</h3>
-      <div class="task-zone">
+      <div class="task-zone" id="todo-task-zone">
         <!-- individaul task -->
       </div>
       <div>
         <!-- click this button open modal -->
-        <button>Add Task</button>
+        <button id="add-todo-button">Add Task</button>
       </div>
     </div>
     <!-- // todo -->
@@ -23,12 +22,12 @@ import { add } from "./../ts/sample.ts";
     <!-- progress -->
     <div class="board progress">
       <h3>PROGRESS</h3>
-      <div class="task-zone">
+      <div class="task-zone" id="progress-task-zone">
         <!-- individaul task -->
       </div>
       <div>
         <!-- click this button open modal -->
-        <button>Add Task</button>
+        <button id="add-progress-button">Add Task</button>
       </div>
     </div>
     <!-- // progress -->
@@ -36,17 +35,19 @@ import { add } from "./../ts/sample.ts";
     <!-- done -->
     <div class="board done">
       <h3>DONE</h3>
-      <div class="task-zone">
+      <div class="task-zone" id="done-task-zone">
         <!-- individaul task -->
       </div>
       <div>
         <!-- click this button open modal -->
-        <button>Add Task</button>
+        <button id="add-done-button">Add Task</button>
       </div>
     </div>
     <!-- // done -->
   </div>
 </div>
+
+<script src="../ts/TaskManager.ts"></script>
 
 <style>
   #container {
