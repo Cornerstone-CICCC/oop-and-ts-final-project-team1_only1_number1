@@ -77,18 +77,23 @@ export class TaskManage {
     dragAndDrop();
   }
 
-  private generateTaskHtml(status: Task["status"]): string {
-    const tasks = this.getTasksByStatus(status)
+  public generateTaskHtml(status: Task["status"], searchQuery: string = ""): string {
+    const filteredTasks = this.getTasksByStatus(status).filter(task =>
+        searchQuery === "" || task.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const tasks = filteredTasks
       .map(
-        (
-          task
-        ) => `<li class="task" data-id=${task.id} draggable="true" data-task>${task.name}<br>${task.description}<br><button class="delete-task-btn" data-id="${task.id}">🗑</button>
-        </li>`
+        (task) =>
+          `<li class="task" data-id=${task.id} draggable="true" data-task>
+              ${task.name}<br>${task.description}<br>
+              <button class="delete-task-btn" data-id="${task.id}">🗑</button>
+          </li>`
       )
       .join("");
-    return tasks;
-  }
 
+    return tasks;
+}
   private setupTaskIntercations(): void {
     document.querySelectorAll(".delete-task-btn").forEach((button) => {
       button.addEventListener("click", (event) => {
