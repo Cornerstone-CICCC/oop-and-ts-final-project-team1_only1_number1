@@ -1,4 +1,5 @@
 import { type Task, taskService } from "./TaskManager";
+import "../styles/modal.css"
 
 export enum ModalType {
   ADD,
@@ -50,10 +51,14 @@ export class Modal {
     if(this.modalType === ModalType.DELETE) {
       modal.innerHTML = `
         <div class="modal-overlay">
-          <div class="modal-content">
-            <p>You really want to delete it?</p>
-            <button id="confirm-delete">Delete</button>
-            <button id="close-modal">Cancel</button>
+          <div class="modal-delete-filling">
+            <div class="modal-task-title">
+                <p>Are you sure to delete this task?</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn" id="confirm-delete">Delete</button>
+                <button class="btn" id="close-modal">Cancel</button>
+            </div>
           </div>
         </div>
       `;
@@ -75,19 +80,30 @@ export class Modal {
       const readOnly = this.modalType === ModalType.VIEW ? "readonly" : "";
 
       modal.innerHTML = `
-        <div class="modal-overlay">
-          <div class="modal-content">
-            <h3>${title}</h3>
-            <input type="text" id="task-name" placeholder="Task Name" ${readOnly}>
-            <textarea id="task-description" placeholder="Description" ${readOnly}></textarea>
-            <select id="task-status" ${readOnly}>
-              <option value="To Do">To Do</option>
-              <option value="Progress">Progress</option>
-              <option value="Done">Done</option>
-            </select>
-            ${this.modalType !== ModalType.VIEW ?
-              `<button id="save-task">Save</button>` : ''}
-            <button id="close-modal">Close</button>
+        <div class="modal">
+          <div class="modal-filling">
+            <div class="modal-task">
+              <h3>${title}</h3>
+              <div class="modal-task-title">
+                <input type="text" id="task-name" placeholder="Task Name" ${readOnly}>
+                <div class="custom-select">
+                  <label for="task-status">Current status:</label>
+                  <select id="task-status" ${readOnly}>
+                    <option value="To Do">To Do</option>
+                    <option value="Progress">Progress</option>
+                    <option value="Done">Done</option>
+                  </select>
+                </div>  
+              </div>
+            </div>
+            <div class="modal-info">
+              <textarea id="task-description" placeholder="Description" ${readOnly}></textarea>
+            </div>
+            <div class="modal-buttons">
+              ${this.modalType !== ModalType.VIEW ?
+              `<button class="modal-ok-btn btn" id="save-task">Save</button>` : ''}
+              <button class="modal-edit-cancel-btn btn" id="close-modal">Close</button>
+            </div>      
           </div>
         </div>
       `;
