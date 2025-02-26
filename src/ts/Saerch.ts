@@ -1,5 +1,4 @@
-import { TaskManage, taskService } from "./TaskManager.ts";
-import type { Task } from "./TaskManager.ts";
+import { taskService } from "./TaskManager.ts";
 
 class SearchTaskManage {
     private searchInput: HTMLInputElement | null;
@@ -21,39 +20,11 @@ class SearchTaskManage {
 
         if (!todoColumn || !progressColumn || !doneColumn) return;
 
-        todoColumn.innerHTML = "";
-        progressColumn.innerHTML = "";
-        doneColumn.innerHTML = "";
+        todoColumn.innerHTML = taskService.generateTaskHtml("To Do", searchQuery);
+        progressColumn.innerHTML = taskService.generateTaskHtml("Progress", searchQuery);
+        doneColumn.innerHTML = taskService.generateTaskHtml("Done", searchQuery);
 
-        const tasksList = taskService.getAllTasks();
-        let hasResults = false;
-
-        tasksList.forEach((task) => {
-            if (searchQuery && !task.name.toLowerCase().includes(searchQuery.toLowerCase())) {
-                return;
-            }
-
-            hasResults = true;
-
-            const newTask = document.createElement("div") as HTMLDivElement;
-            newTask.classList.add("task");
-            newTask.id = `${task.id}`;
-            newTask.setAttribute("draggable", "true");
-            newTask.setAttribute("data-task", "");
-            newTask.innerHTML = `
-                <h4>${task.name}</h4>
-                <p>${task.description}</p>
-            `;
-
-            if (task.status === "To Do") {
-                todoColumn.appendChild(newTask);
-            } else if (task.status === "Progress") {
-                progressColumn.appendChild(newTask);
-            } else if (task.status === "Done") {
-                doneColumn.appendChild(newTask);
-            }
-        });
-
+        const hasResults = !!(todoColumn.innerHTML || progressColumn.innerHTML || doneColumn.innerHTML);
         noResultsMessage.style.display = hasResults ? "none" : "block";
     }
 }

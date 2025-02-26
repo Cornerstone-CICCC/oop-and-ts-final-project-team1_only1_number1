@@ -1,8 +1,11 @@
 ---
 import "../styles/global.css";
+import "../styles/search.css";
 ---
 
-<input type="text" id="search" placeholder="Search tasks..." />
-<p id="no-results" style="display: none;">NO TASKS FOUND</p>
+<div class="search-component" style="display: flex;">
+  <input type="text" id="search" placeholder="Search tasks..." />
+  <p id="no-results" style="display: none;">NO TASKS FOUND</p>
+</div>
 
 <script src="../ts/Saerch.ts"></script>
