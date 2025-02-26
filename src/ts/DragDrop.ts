@@ -38,7 +38,7 @@ export function dragAndDrop(): void {
   });
 }
 
-const columns = document.querySelectorAll<HTMLElement>("[data-column");
+const columns = document.querySelectorAll<HTMLElement>("[data-column]");
 
 // 각 컬럼에 드래그 이벤트 리스너 추가
 columns.forEach(column => {
@@ -63,7 +63,7 @@ columns.forEach(column => {
 
     // 플레이스홀더 생성
     if (!placeholder && draggedItem) {
-      placeholder = document.createElement('div');
+      placeholder = document.createElement('li');
       placeholder.className = 'placeholder';
       // placeholder.style.height = `${draggedItem.offsetHeight}px`;
       placeholder.style.height = `100px`;
