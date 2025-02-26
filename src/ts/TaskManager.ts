@@ -92,7 +92,7 @@ export class TaskManage {
       )
       .join("");
 
-    return `<ul class="task-list">${tasks}</ul>`;
+    return tasks;
 }
   private setupTaskIntercations(): void {
     document.querySelectorAll(".delete-task-btn").forEach((button) => {
