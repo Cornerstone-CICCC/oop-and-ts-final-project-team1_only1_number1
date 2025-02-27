@@ -8,73 +8,111 @@ import "./../styles/task.css";
   <div class="board-wrap">
     <!-- todo -->
     <div class="board todo">
-      <h3>TODO</h3>
+      <div class="board-header">
+        <h3>TODO</h3>
+        <!-- click this button open modal -->
+        <button id="add-todo-button">
+          <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
+        </button>
+      </div>
       <ul class="task-zone" id="todo-task-zone" data-column>
         <!-- individaul task -->
       </ul>
-      <div>
-        <!-- click this button open modal -->
-        <button id="add-todo-button">Add Task</button>
-      </div>
     </div>
     <!-- // todo -->
 
     <!-- progress -->
     <div class="board progress">
-      <h3>PROGRESS</h3>
+      <div class="board-header">
+        <h3>PROGRESS</h3>
+        <button id="add-progress-button">
+          <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
+        </button>
+      </div>
       <ul class="task-zone" id="progress-task-zone" data-column>
         <!-- individaul task -->
       </ul>
-      <div>
-        <!-- click this button open modal -->
-        <button id="add-progress-button">Add Task</button>
-      </div>
     </div>
     <!-- // progress -->
 
     <!-- done -->
     <div class="board done">
-      <h3>DONE</h3>
+      <div class="board-header">
+        <h3>DONE</h3>
+        <button id="add-done-button">
+          <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
+        </button>
+      </div>
       <ul class="task-zone" id="done-task-zone" data-column>
         <!-- individaul task -->
       </ul>
-      <div>
-        <!-- click this button open modal -->
-        <button id="add-done-button">Add Task</button>
-      </div>
     </div>
     <!-- // done -->
   </div>
+
+  <script src="../ts/TaskManager.ts"></script>
+
+  <style>
+    #container {
+      height: calc(100vh - 100px); /* templorary */
+    }
+    .board-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      height: 100%; /* templorary */
+    }
+    .board {
+      padding: 8px;
+    }
+    .board.todo {
+      background-color: #f2bd19;
+    }
+    .board.progress {
+      background-color: #f23f41;
+    }
+    .board.done {
+      background-color: #0bbf8e;
+    }
+    .board h3 {
+      color: #fff;
+    }
+    .task-zone {
+      min-height: 50px; /* temporary for available drag and drop */
+    }
+
+    .board-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .board-header button {
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: none;
+      /* background: white; */
+      cursor: pointer;
+    }
+
+    /* Add mobile styles */
+    @media (max-width: 768px) {
+      .board-wrap {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .task-zone {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 16px;
+        gap: 16px;
+      }
+
+      .task-zone li {
+        min-width: 250px;
+        flex-shrink: 0;
+      }
+    }
+  </style>
 </div>
-
-<script src="../ts/TaskManager.ts"></script>
-
-<style>
-  #container {
-    height: calc(100vh - 100px); /* templorary */
-  }
-  .board-wrap {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    height: 100%; /* templorary */
-  }
-  .board {
-    padding: 8px;
-  }
-  .board.todo {
-    background-color: #f2bd19;
-  }
-  .board.progress {
-    background-color: #f23f41;
-  }
-  .board.done {
-    background-color: #0bbf8e;
-  }
-  .board h3 {
-    color: #fff;
-  }
-  .task-zone {
-    min-height: 50px; /* temporary for available drag and drop */
-  }
-</style>
