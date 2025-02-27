@@ -1,0 +1,189 @@
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-filling {
+    max-width: 90%;
+    width: 680px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    color: black;
+}
+
+.modal-delete-filling {
+    max-width: 90%;
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 2rem 7%;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.modal-upbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .5rem .5rem;
+    border-bottom: #0069dc solid 1px;
+}
+
+.modal-task-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: black;
+}
+
+.modal-upbar p {
+    margin: .3rem 0;
+    font-size: 12px;
+    color: rgb(160, 160, 160);
+}
+
+.modal-upbar button {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    max-height: 1.5rem;
+    margin-bottom: .5rem;
+    margin-left: .7rem;
+}
+
+.modal-info{
+    margin: 1.5rem .5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-info h3 {
+    font-size: 14px;
+    margin: .3rem 0;
+}
+
+.modal-info p {
+    min-height: 100px;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.custom-select select{
+    width: 150px;
+    appearance: auto;
+}
+
+.task-todo {
+    color: #f2bd19;
+}
+
+.task-prog {
+    color: #f23f41;
+}
+
+.task-done {
+    color: #0bbf8e;
+}
+
+.modal-filling input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    border: none;
+    border-bottom: black 1px solid;
+}
+
+.btn {
+    width: 125px;
+    padding: 1rem 0;
+    border-radius: 2rem;
+    border: solid 2px black;
+}
+.modal-edit-cancel-btn {
+    display: flex;
+    justify-content: center;
+    border-color: rgb(160, 160, 160);
+    color: #646464;
+    p {
+        display: none;
+    }
+}
+
+.modal-ok-btn {
+    background-color: #0069dc;
+    color: white;
+    font-weight: bold;
+    border-color: #0069dc;
+}
+
+#confirm-delete {
+    background-color: red;
+    border-color: red;
+    color: white;
+    font-weight: bold;
+}
+
+@media (min-width: 425px) {
+    .modal-buttons {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .modal-edit-cancel-btn {
+        gap: .3rem;
+    }
+
+    .modal-edit-cancel-btn p {
+        display: block;
+        align-self: center;
+    }
+
+    #task-name {
+        width: 60%;
+    }
+
+    #task-description {
+        border-radius: 5px;
+        padding: .5rem 1rem;
+        border: 1px solid white;
+    }
+
+    #task-description:focus {
+        border-color: black;
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-filling {
+        padding: 2rem 5rem;
+    }
+   
+    #task-name {
+        width: 100%;
+    }
+
+    .modal-task-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+}
