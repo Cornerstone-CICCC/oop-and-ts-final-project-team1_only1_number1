@@ -147,7 +147,7 @@ export class TaskManage {
 
     const tasks = filteredTasks.map(
       (task) => `<li class="task" data-id=${task.id} draggable="true" data-task>
-        <div class="task-title">
+        <div class="task-title ${this.colorTask(status)}">
           <strong>${task.name}</strong>
         </div>
         <div class="task-cont">
