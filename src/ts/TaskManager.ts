@@ -1,125 +1,181 @@
 import { dragAndDrop } from "./DragDrop";
 import { Modal } from "./Modal";
 
+export enum TaskStatus {
+  TODO = "To Do",
+  PROGRESS = "Progress",
+  DONE = "Done"
+}
+
 export type Task = {
   id: number;
   name: string;
-  status: "To Do" | "Progress" | "Done";
+  status: TaskStatus;
   description: string;
-};
+  now: string;
+}
 
 export class TaskManage {
   private tasks: Task[] = [];
-  private taskIdCounter: number = 1;
+  private readonly STORAGE_KEY = "kanban"; // key for using localstorage
 
-  // get all tasks (no localStorage)
+  constructor () {
+    this.loadTasksFromStorage();
+  }
+
+  // get tasks from localstorage
+  private loadTasksFromStorage(): void {
+    const savedTasks = localStorage.getItem(this.STORAGE_KEY);
+    if(savedTasks) {
+      this.tasks = JSON.parse(savedTasks);
+    }
+  }
+
+  // save task to localstorage based on this.tasks
+  private saveTasksToStorage(): void {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.tasks));
+  }
+
+  // get tasks from this.tasks
   getAllTasks(): Task[] {
     return this.tasks;
   }
 
+  getOneTasks(taskId: number): Task | undefined {
+    const task = this.tasks.find(task => task.id === taskId)
+    return task;
+  }
+
+  // save task to this.tasks and localstorage as well
   saveTask(task: Task) {
-    this.tasks.push(task)
+    this.tasks.push(task);
+    this.saveTasksToStorage();
     this.renderTasks();
   }
 
-  addTask(status: Task["status"]): void {
-    const modal = new Modal();
-    modal.setStatus(status).add();
-  }
-
-  openModal(modalType: string, taskId?: number) {
+  // open modal each type
+  openModal(modalType: string, status: Task["status"], taskId?: number) {
     const modal = new Modal();
 
     if(taskId) {
       modal.setTask(taskId);
     }
 
-    if(modalType === "edit") {
-      modal.edit();
+    if(modalType === "view") {
+      modal.setStatus(status).view();
+    } else if(modalType === "edit") {
+      modal.setStatus(status).edit();
     } else if(modalType === "delete") {
-      modal.delete();
-    } else if(modalType === "view") {
-      modal.view();
+      modal.setStatus(status).delete();
     } else if(modalType === "add") {
-      modal.add();
+      modal.setStatus(status).add();
     }
-  }
-
-  update(updateTask: Task): void {
-    const index = this.tasks.findIndex((task) => task.id === updateTask.id);
-    if (index === -1) {
-      console.warn(`Task with ID ${updateTask.id} not found.`);
-      return;
-    }
-
-    this.tasks[index] = { ...this.tasks[index], ...updateTask };
-    this.renderTasks();
-  }
-
-  deleteTask(taskId: number): void {
-    this.tasks = this.tasks.filter((task) => task.id !== taskId);
-    this.openModal("delete")
-    // this.renderTasks();
   }
 
   getTasksByStatus(status: Task["status"]): Task[] {
     return this.tasks.filter((task) => task.status === status);
   }
 
-  renderTasks(): void {
-    document.getElementById("todo-task-zone")!.innerHTML = this.generateTaskHtml("To Do");
-    document.getElementById("progress-task-zone")!.innerHTML = this.generateTaskHtml("Progress");
-    document.getElementById("done-task-zone")!.innerHTML = this.generateTaskHtml("Done");
+  deleteTask(id: number): void {
+    this.tasks = this.tasks.filter(task => task.id !== id);
+    this.saveTasksToStorage();
+    this.renderTasks();
+  }
 
-    this.setupTaskIntercations();
+  updateTask(update: Task): void {
+    const item = this.tasks.findIndex(task => task.id === update.id);
 
-    //for drag and drop
+    this.tasks[item] = { ...this.tasks[item], ...update};
+    this.saveTasksToStorage();
+    this.renderTasks();
+  }
+
+  renderTasks() {
+    document.getElementById("todo-task-zone")!.innerHTML = this.generateTaskHtml(TaskStatus.TODO);
+    document.getElementById("progress-task-zone")!.innerHTML = this.generateTaskHtml(TaskStatus.PROGRESS);
+    document.getElementById("done-task-zone")!.innerHTML = this.generateTaskHtml(TaskStatus.DONE);
+
+    this.buttonsEventListener();
+
+    // for drag and drop
     dragAndDrop();
   }
 
-  private generateTaskHtml(status: Task["status"]): string {
-    const tasks = this.getTasksByStatus(status)
-      .map(
-        (
-          task
-        ) => `<li class="task" data-id=${task.id} draggable="true" data-task>${task.name}<br>${task.description}<br><button class="delete-task-btn" data-id="${task.id}">🗑</button>
+  public generateTaskHtml(status: Task["status"], searchQuery: string = ""): string {
+
+    const filteredTasks = this.getTasksByStatus(status).filter(task => searchQuery === "" || task.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    const tasks = filteredTasks.map(
+      (task) => `<li class="task" data-id=${task.id} draggable="true" data-task>
+        <div class="task-title">
+          <strong>${task.name}</strong>
+          <p>${task.description}</p>
+        </div>
+        <div>
+          <button class="delete-task-btn" data-id="${task.id}">🗑</button>
+          <button class="edit-task-btn" data-id="${task.id}">✏️</button>
+        </div>
         </li>`
-      )
-      .join("");
+    ).join("");
     return tasks;
   }
 
-  private setupTaskIntercations(): void {
-    document.querySelectorAll(".delete-task-btn").forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.stopPropagation();
-        const taskId = parseInt((event.target as HTMLElement).getAttribute("data-id") || "-1", 10);
-        if (taskId !== -1) {
-          this.deleteTask(taskId);
-        }
-      });
-    });
+  private buttonsEventListener() {
+    const deleteButtons = document.querySelectorAll(".delete-task-btn");
+    if(deleteButtons) {
+      deleteButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const taskId = parseInt((event.target as HTMLElement).dataset.id || "-1", 10);
+          const target: Task = this.tasks.filter(task => task.id === taskId)[0];
+          const targetStatus: TaskStatus = target.status;
 
-    document.querySelectorAll(".task").forEach((taskElement) => {
-      taskElement.addEventListener("click", () => {
-        const taskId = parseInt(taskElement.getAttribute("data-id")!, 10);
-        this.update(taskId);
-      });
-    });
+          if (taskId !== -1) {
+            this.openModal("delete", targetStatus, taskId);
+          }
+        })
+      })
+    }
+
+    const editButtons = document.querySelectorAll(".edit-task-btn");
+    if(editButtons) {
+      editButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const taskId = parseInt((event.target as HTMLElement).dataset.id || "-1", 10);
+          const target: Task = this.tasks.filter(task => task.id === taskId)[0];
+          const targetStatus: TaskStatus = target.status;
+
+          if (taskId !== -1) {
+            this.openModal("edit", targetStatus, taskId);
+          }
+        })
+      })
+    }
+
+    const viewButtons = document.querySelectorAll(".task");
+    if(viewButtons) {
+      viewButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+          const taskId = parseInt((event.currentTarget as HTMLElement).getAttribute("data-id") || "-1", 10);
+          const target: Task = this.tasks.filter(task => task.id === taskId)[0];
+          const targetStatus: TaskStatus = target.status;
+          if (taskId !== -1) {
+            this.openModal("view", targetStatus, taskId);
+          }
+        });
+      })
+    }
   }
 }
 
-// create instance
 export const taskService = new TaskManage();
 
 // event listener
 window.addEventListener("load", () => {
-  document.getElementById("add-todo-button")?.addEventListener("click", () => taskService.addTask("To Do"));
-  document
-    .getElementById("add-progress-button")
-    ?.addEventListener("click", () => taskService.addTask("Progress"));
-  document.getElementById("add-done-button")?.addEventListener("click", () => taskService.addTask("Done"));
+  document.getElementById("add-todo-button")?.addEventListener("click", () => taskService.openModal("add", TaskStatus.TODO));
+  document.getElementById("add-progress-button")?.addEventListener("click", () => taskService.openModal("add", TaskStatus.PROGRESS))
+  document.getElementById("add-done-button")?.addEventListener("click", () => taskService.openModal("add", TaskStatus.DONE));
 
-  // first render
   taskService.renderTasks();
-});
+})
