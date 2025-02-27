@@ -128,20 +128,37 @@ export class TaskManage {
     dragAndDrop();
   }
 
+  // Coloring of tasks in board
+  colorTask(status: Task["status"]): string {
+    let colorClass: string = ""
+    if (status === TaskStatus.TODO) {
+      colorClass = "todo-color"
+    } else if (status === TaskStatus.PROGRESS) {
+      colorClass = "progress-color"
+    } else if (status === TaskStatus.DONE) {
+      colorClass = "done-color"
+    }
+    return colorClass
+  }
+
   public generateTaskHtml(status: Task["status"], searchQuery: string = ""): string {
 
     const filteredTasks = this.getTasksByStatus(status).filter(task => searchQuery === "" || task.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const tasks = filteredTasks.map(
       (task) => `<li class="task" data-id=${task.id} draggable="true" data-task>
-        <div class="task-title">
+        <div class="task-title ${this.colorTask(status)}">
           <strong>${task.name}</strong>
-          <p>${task.description}</p>
         </div>
-        <div>
-          <button class="delete-task-btn" data-id="${task.id}">🗑</button>
-          <button class="edit-task-btn" data-id="${task.id}">✏️</button>
-        </div>
+        <div class="task-cont">
+          <div class="task-desc">
+            <p>${task.description}</p>
+          </div>
+          <div class ="task-buttons">
+            <button class="delete-task-btn" data-id="${task.id}"><img src="src/assets/delete.svg" alt="delete icon"></button>
+            <button class="edit-task-btn" data-id="${task.id}"><img src="src/assets/edit.svg" alt="edit icon"></button>
+          </div>
+        </div>  
         </li>`
     ).join("");
     return tasks;
