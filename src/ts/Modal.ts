@@ -1,5 +1,6 @@
-import { type Task, taskService } from "./TaskManager";
+import { TaskStatus, type Task, taskService } from "./TaskManager";
 import "../styles/modal.css"
+import mod from "astro/zod";
 
 export enum ModalType {
   ADD,
@@ -8,20 +9,19 @@ export enum ModalType {
   VIEW
 }
 export class Modal {
-  // private taskManager: TaskManage;
   private taskId?: number;
   private status?: Task["status"]
 
   constructor(
-    private modalType: ModalType = ModalType.ADD
+    private modalType: ModalType = ModalType.ADD // set modalType as default ADD
   ) {
-    // this.taskManager = new TaskManage();
   }
 
   setTask(taskId: number) {
     this.taskId = taskId;
     return this;
   }
+
   setStatus(status: Task["status"]) {
     this.status = status;
     return this;
@@ -56,21 +56,19 @@ export class Modal {
                 <p>Are you sure to delete this task?</p>
             </div>
             <div class="modal-buttons">
-                <button class="btn" id="confirm-delete">Delete</button>
+                <button class="btn" id="delete-task">Delete</button>
                 <button class="btn" id="close-modal">Cancel</button>
             </div>
           </div>
         </div>
       `;
-      document.body.appendChild(modal);
-      this.setupEventListeners();
     } else {
-      let taskData = { name: '', description: '', status: this.status || 'To Do' };
+      let data = { name: '', description: '', status: this.status || TaskStatus.TODO, now: '' };
 
       if ((this.modalType === ModalType.EDIT || this.modalType === ModalType.VIEW) && this.taskId) {
         const task = taskService.getAllTasks().find(item => item.id === this.taskId);
         if (task) {
-          taskData = task;
+          data = task;
         }
       }
 
@@ -85,57 +83,75 @@ export class Modal {
             <div class="modal-task">
               <h3>${title}</h3>
               <div class="modal-task-title">
-                <input type="text" id="task-name" placeholder="Task Name" ${readOnly}>
+                <input type="text" id="task-name" placeholder="Task Name" value="${data.name}" ${readOnly}>
                 <div class="custom-select">
-                  <label for="task-status">Current status:</label>
+                  <label for="task-status">Current status: ${this.status}</label>
                   <select id="task-status" ${readOnly}>
-                    <option value="To Do">To Do</option>
-                    <option value="Progress">Progress</option>
-                    <option value="Done">Done</option>
+                    <option value="To Do" ${data.status === TaskStatus.TODO ? 'selected' : ''}>To Do</option>
+                    <option value="Progress" ${data.status === TaskStatus.PROGRESS ? 'selected' : ''}>Progress</option>
+                    <option value="Done" ${data.status === TaskStatus.DONE ? 'selected' : ''}>Done</option>
                   </select>
-                </div>  
+                </div>
+                ${this.modalType !== ModalType.ADD ? 
+                  `<span>Updated: ${data.now}</span>`: ""}
               </div>
             </div>
             <div class="modal-info">
-              <textarea id="task-description" placeholder="Description" ${readOnly}></textarea>
+              <textarea id="task-description" placeholder="Description" value="${data.description}" ${readOnly}></textarea>
             </div>
             <div class="modal-buttons">
               ${this.modalType !== ModalType.VIEW ?
-              `<button class="modal-ok-btn btn" id="save-task">Save</button>` : ''}
+              `<button class="modal-ok-btn btn" id="save-task">Save</button>` : `<button class="modal-ok-btn btn" id="edit-task">Edit</button>`}
               <button class="modal-edit-cancel-btn btn" id="close-modal">Close</button>
-            </div>      
+            </div>
           </div>
         </div>
       `;
+    }
 
-      document.body.appendChild(modal);
-      this.setupEventListeners();
+    document.body.appendChild(modal);
+    this.buttonsEventListener();
+  }
+
+  buttonsEventListener() {
+    // close modal
+    const closeButton = document.querySelector("#close-modal");
+    if(closeButton) {
+      closeButton.addEventListener("click", () => {
+        this.closeModal();
+      })
+    }
+    // save task
+    const saveButton = document.querySelector("#save-task")
+    if(saveButton) {
+      saveButton.addEventListener("click", () => {
+        this.saveTaskData();
+      })
+    }
+
+    // delete task
+    const deleteButton = document.querySelector("#delete-task");
+    if(deleteButton) {
+      deleteButton.addEventListener("click", () => {
+        this.deleteTask();
+      })
+    }
+
+    // changing to edit
+    const editButton = document.querySelector("#edit-task");
+    if(editButton) {
+      editButton.addEventListener("click", () => {
+        this.modalType = ModalType.EDIT;
+        this.closeModal();
+        this.renderModal();
+      })
     }
   }
 
-  setupEventListeners() {
-    // Close modal
-    const closeBtn = document.getElementById("close-modal");
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        this.closeModal();
-      });
-    }
-
-    // Save task
-    const saveBtn = document.getElementById("save-task");
-    if (saveBtn) {
-      saveBtn.addEventListener("click", () => {
-        this.saveTaskData();
-      });
-    }
-
-    // Delete confirmation
-    const deleteBtn = document.getElementById("confirm-delete");
-    if (deleteBtn) {
-      deleteBtn.addEventListener("click", () => {
-        this.deleteTask();
-      });
+  closeModal() {
+    const modal = document.querySelector("#task-modal")
+    if(modal) {
+      document.body.removeChild(modal);
     }
   }
 
@@ -143,45 +159,35 @@ export class Modal {
     const title = document.querySelector("#task-name") as HTMLInputElement;
     const detail = document.querySelector("#task-description") as HTMLInputElement;
     const status = document.querySelector("#task-status") as HTMLInputElement;
-
-    // const newTask = {
-    //   id: Date.now(),
-    //   name: title.value,
-    //   description: detail.value,
-    //   status: status.value
-    // };
+    const now = new Date();
 
     if (this.modalType === ModalType.EDIT && this.taskId) {
-      // Update existing task
-      taskService.update({
+      taskService.updateTask({
         id: this.taskId,
         name: title.value,
         description: detail.value,
+        now: now.toLocaleString(),
         status: status.value as Task["status"]
       });
     } else if(this.modalType === ModalType.ADD) {
-      // Add new task
       const newTask: Task = {
         id: Date.now(),
         name: title.value,
         description: detail.value,
-        status: status.value as Task["status"]
+        status: status.value as Task["status"],
+        now: now.toLocaleString()
       };
 
       taskService.saveTask(newTask);
     }
 
     this.closeModal();
-    taskService.renderTasks();
   }
 
-  closeModal() {
-    const modal = document.getElementById("task-modal");
-    if (modal) {
-      document.body.removeChild(modal);
-    }
-  }
   deleteTask() {
+    if(this.taskId) {
+      taskService.deleteTask(this.taskId)
+    }
     this.closeModal();
   }
 }
