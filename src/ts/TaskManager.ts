@@ -17,7 +17,9 @@ export type Task = {
 
 export class TaskManage {
   private tasks: Task[] = [];
+  private tasksResult: Task[] = [];
   private readonly STORAGE_KEY = "kanban"; // key for using localstorage
+  isSearching: boolean = false;
 
   constructor () {
     this.loadTasksFromStorage();
@@ -82,12 +84,37 @@ export class TaskManage {
     this.renderTasks();
   }
 
+  updateTaskData(update: Task) {
+    const item = this.tasks.findIndex(task => task.id === update.id);
+
+    this.tasks[item] = { ...this.tasks[item], ...update};
+    this.saveTasksToStorage();
+  }
+
   updateTask(update: Task): void {
     const item = this.tasks.findIndex(task => task.id === update.id);
 
     this.tasks[item] = { ...this.tasks[item], ...update};
     this.saveTasksToStorage();
+    // this.updateTaskData(update)
     this.renderTasks();
+  }
+
+  searchKeyword(keyword: string) {
+    this.tasksResult = this.tasks.filter(task => task.name.toLowerCase().includes(keyword.toLowerCase()))
+
+    const taskList = document.querySelectorAll(".task");
+    taskList.forEach(taskLi => {
+      const taskId = parseInt(taskLi.getAttribute("data-id") || "-1", 10);
+      this.tasksResult.map(task => {
+        if(task.id === taskId) {
+          taskLi.classList.remove("hide")
+        } else {
+          taskLi.classList.add("hide")
+        }
+      })
+    })
+
   }
 
   renderTasks() {
@@ -120,7 +147,7 @@ export class TaskManage {
     return tasks;
   }
 
-  private buttonsEventListener() {
+  public buttonsEventListener() {
     const deleteButtons = document.querySelectorAll(".delete-task-btn");
     if(deleteButtons) {
       deleteButtons.forEach(button => {

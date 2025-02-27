@@ -92,12 +92,12 @@ export class Modal {
                     <option value="Done" ${data.status === TaskStatus.DONE ? 'selected' : ''}>Done</option>
                   </select>
                 </div>
-                ${this.modalType !== ModalType.ADD ? 
+                ${this.modalType !== ModalType.ADD ?
                   `<span>Updated: ${data.now}</span>`: ""}
               </div>
             </div>
             <div class="modal-info">
-              <textarea id="task-description" placeholder="Description" value="${data.description}" ${readOnly}></textarea>
+              <textarea id="task-description" placeholder="Description" ${readOnly}>${data.description}</textarea>
             </div>
             <div class="modal-buttons">
               ${this.modalType !== ModalType.VIEW ?

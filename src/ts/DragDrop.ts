@@ -50,7 +50,7 @@ export function dragAndDrop(): void {
             status: TaskStatus.DONE
           }
         }
-        taskService.updateTask(newTask)
+        taskService.updateTaskData(newTask)
 
         draggedItem = null;
       }
