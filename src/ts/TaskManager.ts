@@ -154,7 +154,7 @@ export class TaskManage {
           <div class="task-desc">
             <p>${task.description}</p>
           </div>
-          <div class ="task-buttons">
+          <div class="task-buttons">
             <button class="delete-task-btn" data-id="${task.id}"><img src="src/assets/delete.svg" alt="delete icon"></button>
             <button class="edit-task-btn" data-id="${task.id}"><img src="src/assets/edit.svg" alt="edit icon"></button>
           </div>
@@ -170,7 +170,7 @@ export class TaskManage {
       deleteButtons.forEach(button => {
         button.addEventListener("click", (event) => {
           event.stopPropagation();
-          const taskId = parseInt((event.target as HTMLElement).dataset.id || "-1", 10);
+          const taskId = parseInt((event.currentTarget as HTMLElement).dataset.id || "-1", 10);
           const target: Task = this.tasks.filter(task => task.id === taskId)[0];
           const targetStatus: TaskStatus = target.status;
 
@@ -186,7 +186,7 @@ export class TaskManage {
       editButtons.forEach(button => {
         button.addEventListener("click", (event) => {
           event.stopPropagation();
-          const taskId = parseInt((event.target as HTMLElement).dataset.id || "-1", 10);
+          const taskId = parseInt((event.currentTarget as HTMLElement).dataset.id || "-1", 10);
           const target: Task = this.tasks.filter(task => task.id === taskId)[0];
           const targetStatus: TaskStatus = target.status;
 
