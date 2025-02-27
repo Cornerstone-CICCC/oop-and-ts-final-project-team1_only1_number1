@@ -1,4 +1,6 @@
-import { taskService } from "./TaskManager.ts";
+import { taskService, TaskStatus } from "./TaskManager.ts";
+import { dragAndDrop } from "./DragDrop";
+
 
 class SearchTaskManage {
     private searchInput: HTMLInputElement | null;
@@ -16,16 +18,19 @@ class SearchTaskManage {
         const todoColumn = document.querySelector("#todo-task-zone") as HTMLElement;
         const progressColumn = document.querySelector("#progress-task-zone") as HTMLElement;
         const doneColumn = document.querySelector("#done-task-zone") as HTMLElement;
-        const noResultsMessage = document.querySelector("#no-results") as HTMLElement;
+        // const noResultsMessage = document.querySelector("#no-results") as HTMLElement;
 
         if (!todoColumn || !progressColumn || !doneColumn) return;
 
-        todoColumn.innerHTML = taskService.generateTaskHtml("To Do", searchQuery);
-        progressColumn.innerHTML = taskService.generateTaskHtml("Progress", searchQuery);
-        doneColumn.innerHTML = taskService.generateTaskHtml("Done", searchQuery);
+        todoColumn.innerHTML = taskService.generateTaskHtml(TaskStatus.TODO, searchQuery);
+        progressColumn.innerHTML = taskService.generateTaskHtml(TaskStatus.PROGRESS, searchQuery);
+        doneColumn.innerHTML = taskService.generateTaskHtml(TaskStatus.DONE, searchQuery);
 
-        const hasResults = !!(todoColumn.innerHTML || progressColumn.innerHTML || doneColumn.innerHTML);
-        noResultsMessage.style.display = hasResults ? "none" : "block";
+        dragAndDrop();
+        taskService.buttonsEventListener();
+
+        // const hasResults = !!(todoColumn.innerHTML || progressColumn.innerHTML || doneColumn.innerHTML);
+        // noResultsMessage.style.display = hasResults ? "none" : "block";
     }
 }
 
