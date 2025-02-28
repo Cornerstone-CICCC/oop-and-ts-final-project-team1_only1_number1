@@ -92,7 +92,6 @@ import "./../styles/task.css";
       padding: 4px 8px;
       border-radius: 4px;
       border: none;
-      /* background: white; */
       cursor: pointer;
     }
 
@@ -101,17 +100,20 @@ import "./../styles/task.css";
       .board-wrap {
         grid-template-columns: 1fr;
         gap: 24px;
+        height: auto;
+      }
+      .board {
+        max-width: 100%;
+        overflow-x: hidden; /* Prevent board from extending */
       }
       .task-zone {
         display: flex;
         overflow-x: auto;
+        overflow-y: hidden;
         padding-bottom: 16px;
         gap: 16px;
-      }
-
-      .task-zone li {
-        min-width: 250px;
-        flex-shrink: 0;
+        width: 100%;
+        scroll-behavior: smooth;
       }
     }
   </style>
