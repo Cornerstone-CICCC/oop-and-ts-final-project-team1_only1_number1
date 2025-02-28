@@ -79,30 +79,34 @@ export class Modal {
 
       modal.innerHTML = `
         <div class="modal">
-          <div class="modal-filling">
-            <div class="modal-task">
-              <h3>${title}</h3>
-              <div class="modal-task-title">
-                <input type="text" id="task-name" placeholder="Task Name" value="${data.name}" ${readOnly}>
+          <div class="modal-filling ${this.modalType === ModalType.EDIT ? 'edit' : ''}">
+            <div class="modal-task-title">
+              <input type="text" id="task-name" placeholder="Task Name" value="${data.name}" ${readOnly}>
+              <div class="modal-task-title-footer">
                 <div class="custom-select">
                   <label for="task-status">Current status: ${this.status}</label>
-                  <select id="task-status" ${readOnly}>
-                    <option value="To Do" ${data.status === TaskStatus.TODO ? 'selected' : ''}>To Do</option>
-                    <option value="Progress" ${data.status === TaskStatus.PROGRESS ? 'selected' : ''}>Progress</option>
-                    <option value="Done" ${data.status === TaskStatus.DONE ? 'selected' : ''}>Done</option>
-                  </select>
+                  ${this.modalType !== ModalType.VIEW ?
+                    `<select id="task-status" ${readOnly}>
+                      <option value="To Do" ${data.status === TaskStatus.TODO ? 'selected' : ''}>To Do</option>
+                      <option value="Progress" ${data.status === TaskStatus.PROGRESS ? 'selected' : ''}>Progress</option>
+                      <option value="Done" ${data.status === TaskStatus.DONE ? 'selected' : ''}>Done</option>
+                    </select>` : ""}
                 </div>
                 ${this.modalType !== ModalType.ADD ?
-                  `<span>Updated: ${data.now}</span>`: ""}
-              </div>
+                `<span>Updated: ${data.now}</span>`: ""}
+              </div>    
             </div>
             <div class="modal-info">
+              <h4>DETAILS: </h4>
               <textarea id="task-description" placeholder="Description" ${readOnly}>${data.description}</textarea>
             </div>
             <div class="modal-buttons">
               ${this.modalType !== ModalType.VIEW ?
-              `<button class="modal-ok-btn btn" id="save-task">Save</button>` : `<button class="modal-ok-btn btn" id="edit-task">Edit</button>`}
+              `<button class="modal-ok-btn btn" id="save-task">Save</button>` : `<button class="modal-ok-btn btn" id="edit-task">Edit <img src="src/assets/edit.svg" alt=""></button>`}
               <button class="modal-edit-cancel-btn btn" id="close-modal">Close</button>
+            </div>
+            <div  class="modal-type">
+              <h3>${title}</h3>
             </div>
           </div>
         </div>
