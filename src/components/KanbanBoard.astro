@@ -1,5 +1,9 @@
 ---
 import "./../styles/task.css";
+import { Image } from "astro:assets";
+import TODO from "../assets/TODO.png";
+import PROGRESS from "../assets/PROGRESS.png";
+import DONE from "../assets/DONE.png";
 ---
 
 <div id="container">
@@ -8,7 +12,9 @@ import "./../styles/task.css";
   <div class="board-wrap">
     <!-- todo -->
     <div class="board todo">
-      <h3>TODO</h3>
+      <div class="task-name">
+        <Image src={TODO} alt="TODO" width={100} height={33.3} />
+      </div>
       <ul class="task-zone" id="todo-task-zone" data-column>
         <!-- individaul task -->
       </ul>
@@ -21,7 +27,9 @@ import "./../styles/task.css";
 
     <!-- progress -->
     <div class="board progress">
-      <h3>PROGRESS</h3>
+      <div class="task-name">
+        <Image src={PROGRESS} alt="PROGRESS" width={168} height={33.3} />
+      </div>
       <ul class="task-zone" id="progress-task-zone" data-column>
         <!-- individaul task -->
       </ul>
@@ -34,7 +42,9 @@ import "./../styles/task.css";
 
     <!-- done -->
     <div class="board done">
-      <h3>DONE</h3>
+      <div class="task-name">
+        <Image src={DONE} alt="DONE" width={100} height={33.3} />
+      </div>
       <ul class="task-zone" id="done-task-zone" data-column>
         <!-- individaul task -->
       </ul>
