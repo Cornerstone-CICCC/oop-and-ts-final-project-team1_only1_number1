@@ -1,5 +1,9 @@
 ---
 import "./../styles/task.css";
+import { Image } from "astro:assets";
+import TODO from "../assets/TODO.png";
+import PROGRESS from "../assets/PROGRESS.png";
+import DONE from "../assets/DONE.png";
 ---
 
 <div id="container">
@@ -9,7 +13,9 @@ import "./../styles/task.css";
     <!-- todo -->
     <div class="board todo">
       <div class="board-header">
-        <h3>TODO</h3>
+        <div class="task-name">
+          <Image src={TODO} alt="TODO" width={100} height={33.3} />
+        </div>
         <!-- click this button open modal -->
         <button id="add-todo-button">
           <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
@@ -24,7 +30,9 @@ import "./../styles/task.css";
     <!-- progress -->
     <div class="board progress">
       <div class="board-header">
-        <h3>PROGRESS</h3>
+        <div class="task-name">
+          <Image src={PROGRESS} alt="PROGRESS" width={168} height={33.3} />
+        </div>
         <button id="add-progress-button">
           <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
         </button>
@@ -38,7 +46,9 @@ import "./../styles/task.css";
     <!-- done -->
     <div class="board done">
       <div class="board-header">
-        <h3>DONE</h3>
+        <div class="task-name">
+          <Image src={DONE} alt="DONE" width={100} height={33.3} />
+        </div>
         <button id="add-done-button">
           <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
         </button>
@@ -103,8 +113,7 @@ import "./../styles/task.css";
         height: auto;
       }
       .board {
-        max-width: 100%;
-        overflow-x: hidden; /* Prevent board from extending */
+        max-width: 47%;
       }
       .task-zone {
         display: flex;
