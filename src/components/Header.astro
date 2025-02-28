@@ -1,10 +1,14 @@
 ---
 import "../styles/search.css";
 import Search from "../components/Search.astro";
+import { Image } from "astro:assets";
+import title from "../assets/PLAYBANBOARD.png";
 ---
 
 <header>
-  <h1>TEAM1 ONLY1 NUMBER1</h1>
+  <div>
+    <Image src={title} alt="Header Background" width={480} height={60} />
+  </div>
   <Search />
 </header>
 
