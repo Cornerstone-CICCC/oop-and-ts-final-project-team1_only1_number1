@@ -32,8 +32,13 @@ import ProgressBar from "../components/ProgressBar.astro";
     height: 100%;
   }
   body {
-    padding: 2rem;
+    padding: 1.5rem;
     background-color: #0069dc; /* #2B96D8 */
     color: #fff;
+  }
+  @media (min-width: 768px) {
+    body {
+      padding: 2rem;
+    }
   }
 </style>

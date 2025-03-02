@@ -80,11 +80,13 @@ import DONE from "../assets/DONE.png";
   <style>
     .board-wrap {
       display: flex;
-      gap: 16px;
       height: 100%; /* templorary */
+      margin-left: -8px;
+      margin-right: -8px;
     }
     .board {
       min-width: calc(33.33% - 16px);
+      margin: 8px;
       padding: 16px;
       min-height: calc(100vh - 185px);
     }
@@ -125,9 +127,11 @@ import DONE from "../assets/DONE.png";
         gap: 24px;
         height: auto;
         display: block;
+        margin: 0;
       }
       .board {
         min-height: auto;
+        margin: 0;
       }
       .task-zone {
         display: flex;

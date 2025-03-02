@@ -80,6 +80,9 @@ export class Modal {
       modal.innerHTML = `
         <div class="modal">
           <div class="modal-filling ${this.modalType === ModalType.EDIT ? 'edit' : ''}">
+            <div  class="modal-type">
+              <h3>${title}</h3>
+            </div>
             <div class="modal-task-title">
               <input type="text" id="task-name" placeholder="Task Name" value="${data.name}" ${readOnly}>
               <div class="modal-task-title-footer">
@@ -94,7 +97,7 @@ export class Modal {
                 </div>
                 ${this.modalType !== ModalType.ADD ?
                 `<span>Updated: ${data.now}</span>`: ""}
-              </div>    
+              </div>
             </div>
             <div class="modal-info">
               <h4>DETAILS: </h4>
@@ -104,9 +107,6 @@ export class Modal {
               ${this.modalType !== ModalType.VIEW ?
               `<button class="modal-ok-btn btn" id="save-task">Save</button>` : `<button class="modal-ok-btn btn" id="edit-task">Edit <img src="src/assets/edit.svg" alt=""></button>`}
               <button class="modal-edit-cancel-btn btn" id="close-modal">Close</button>
-            </div>
-            <div  class="modal-type">
-              <h3>${title}</h3>
             </div>
           </div>
         </div>
