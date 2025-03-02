@@ -1,10 +1,10 @@
-.todo-color {
+#todo-task-zone .task-title {
   --task-color: yellow;
 }
-.progress-color {
+#progress-task-zone .task-title {
   --task-color: red;
 }
-.done-color {
+#done-task-zone .task-title {
   --task-color: #6af6d1;
 }
 
