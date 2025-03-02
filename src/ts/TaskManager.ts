@@ -1,5 +1,6 @@
 import { dragAndDrop } from "./DragDrop";
 import { Modal } from "./Modal";
+import { movingProgress } from "./Moving";
 
 export enum TaskStatus {
   TODO = "To Do",
@@ -126,6 +127,7 @@ export class TaskManage {
 
     // for drag and drop
     dragAndDrop();
+    movingProgress.movingCharacter();
   }
 
   // Coloring of tasks in board
@@ -222,4 +224,6 @@ window.addEventListener("load", () => {
   document.getElementById("add-done-button")?.addEventListener("click", () => taskService.openModal("add", TaskStatus.DONE));
 
   taskService.renderTasks();
+
+  movingProgress.initialize(taskService.getAllTasks());
 })
