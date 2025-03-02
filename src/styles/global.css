@@ -1,8 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Lacquer&family=Mukta:wght@200;300;400;500;600;700;800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+.jua, .jua * {
+  font-family: "Jua", sans-serif;
+}
+.lacquer, .lacquer * {
+  font-family: "Lacquer", sans-serif;
+}
+.mukta, .mukta * {
+  font-family: "Mukta", sans-serif;
+}
+.roboto-mono, .roboto-mono * {
+  font-family: "Roboto Mono", sans-serif;
+}
+.sour-gummy, .sour-gummy * {
+  font-family: "Sour Gummy", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", serif;
+  font-family: "Roboto Mono", serif;
 }
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, address, del, dfn, em, img, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, figcaption, footer, header, menu, nav, section, summary {
@@ -103,6 +121,26 @@ ul, ol, li {
   clip-path: polygon(0 0, 0 0, 0 0);
 }
 
-.task-name {
-  text-align: center;
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+}
+
+.multi-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+}
+
+main {
+  padding-bottom: 80px;
+}
+
+.placeholder {
+  border-radius: 16px;
+  background-color: rgba(0,0,0,0.25);
 }

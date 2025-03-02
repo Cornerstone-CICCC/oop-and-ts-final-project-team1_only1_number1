@@ -137,11 +137,11 @@ export class TaskManage {
     const tasks = filteredTasks.map(
       (task) => `<li class="task" data-id=${task.id} draggable="true" data-task>
         <div class="task-title">
-          <strong>${task.name}</strong>
+          <strong class="ellipsis">${task.name}</strong>
         </div>
         <div class="task-cont">
           <div class="task-desc">
-            <p>${task.description}</p>
+            <p class="multi-ellipsis">${task.description}</p>
           </div>
           <div class="task-buttons">
             <button class="delete-task-btn" data-id="${task.id}"><img src="src/assets/delete.svg" alt="delete icon"></button>
