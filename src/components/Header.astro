@@ -1,0 +1,15 @@
+---
+import "../styles/search.css";
+import Search from "../components/Search.astro";
+import { Image } from "astro:assets";
+import title from "../assets/PLAYBANBOARD.png";
+---
+
+<header>
+  <div id="page-title">
+    <Image src={title} alt="Header Background" width={480} height={60} />
+  </div>
+  <Search />
+</header>
+
+<!-- <p id="no-results" style="display: none;">NO TASKS FOUND</p> -->
