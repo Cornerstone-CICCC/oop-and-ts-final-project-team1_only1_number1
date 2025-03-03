@@ -44,7 +44,7 @@
     justify-content: center;
 }
 .modal-delete-filling .modal-task-title  {
-    border-bottom: 0;
+    border-bottom: 1px solid transparent;
     margin: 20px 0;
     text-align: center;
     display: block;
@@ -134,11 +134,16 @@
     justify-content: space-between;
     margin: 1rem 0 0;
 }
+.custom-select label {
+    line-height: 22px;
+}
 
 .custom-select select{
     margin-left: 6px;
     width: 100px;
     appearance: auto;
+    padding: 3px;
+    border-radius: 5px;
 }
 
 .btn {
@@ -174,7 +179,7 @@
 
 .modal-task-name {
     margin-top: 12px;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 600;
 }
 @media (max-width: 374px) {
