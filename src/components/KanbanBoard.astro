@@ -18,7 +18,12 @@ import DONE from "../assets/DONE.png";
         </div>
         <!-- click this button open modal -->
         <button id="add-todo-button">
-          <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
+          <img
+            src="/src/assets/plus.svg"
+            alt="Add task"
+            width="20"
+            height="20"
+          />
         </button>
       </div>
       <ul class="task-zone" id="todo-task-zone" data-column>
@@ -34,7 +39,12 @@ import DONE from "../assets/DONE.png";
           <Image src={PROGRESS} alt="PROGRESS" width={168} height={33.3} />
         </div>
         <button id="add-progress-button">
-          <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
+          <img
+            src="/src/assets/plus.svg"
+            alt="Add task"
+            width="20"
+            height="20"
+          />
         </button>
       </div>
       <ul class="task-zone" id="progress-task-zone" data-column>
@@ -50,7 +60,12 @@ import DONE from "../assets/DONE.png";
           <Image src={DONE} alt="DONE" width={100} height={33.3} />
         </div>
         <button id="add-done-button">
-          <img src="/src/assets/plus.svg" alt="Add task" width="20" height="20" />
+          <img
+            src="/src/assets/plus.svg"
+            alt="Add task"
+            width="20"
+            height="20"
+          />
         </button>
       </div>
       <ul class="task-zone" id="done-task-zone" data-column>
@@ -63,17 +78,17 @@ import DONE from "../assets/DONE.png";
   <script src="../ts/TaskManager.ts"></script>
 
   <style>
-    #container {
-      height: calc(100vh - 100px); /* templorary */
-    }
     .board-wrap {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      display: flex;
       height: 100%; /* templorary */
+      margin-left: -8px;
+      margin-right: -8px;
     }
     .board {
-      padding: 8px;
+      min-width: calc(33.33% - 16px);
+      margin: 8px;
+      padding: 16px;
+      min-height: calc(100vh - 185px);
     }
     .board.todo {
       background-color: #f2bd19;
@@ -112,6 +127,11 @@ import DONE from "../assets/DONE.png";
         gap: 24px;
         height: auto;
         display: block;
+        margin: 0;
+      }
+      .board {
+        min-height: auto;
+        margin: 0;
       }
       .task-zone {
         display: flex;

@@ -1,4 +1,5 @@
 import { taskService, TaskStatus, type Task } from "./TaskManager";
+import { movingProgress } from "./Moving"
 let draggedItem: HTMLElement | null = null;
 let placeholder: HTMLElement | null = null;
 
@@ -50,7 +51,8 @@ export function dragAndDrop(): void {
             status: TaskStatus.DONE
           }
         }
-        taskService.updateTaskData(newTask)
+        taskService.updateTaskData(newTask);
+        movingProgress.movingCharacter();
 
         draggedItem = null;
       }

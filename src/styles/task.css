@@ -12,16 +12,15 @@
   background-color: #fff;
   border-radius: 16px;
   border: black 1px solid;
-  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.35);
   color: #000;
-  margin: 1.2rem auto;
-  width: 95%;
+  margin: 1.2rem 0;
   transition: 0.2s ease-in-out;
 }
 
 .task:hover {
   translate: -1px -2px;
-  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.35);
 }
 
 .task-title {
@@ -29,9 +28,10 @@
   background-color: var(--task-color);
   border-radius: 16px 16px 0 0;
   border-bottom: 1px solid black;
-  padding: 0.7rem 1rem 0.3rem;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.5);
+  padding: 0.7rem 1rem 0.5rem;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.35);
   margin-bottom: 0.75rem;
+  font-size: 15px;
 }
 
 .task-buttons {
@@ -46,6 +46,7 @@
 
 .task-cont {
   margin: 0 1.2rem;
+  font-size: 14px;
 }
 
 .modal-overlay {
@@ -84,6 +85,7 @@
   .task {
     width: 50%; /* Fixed width for mobile */
     flex: 0 0 50%; /* Prevent growing or shrinking */
+    min-width: 180px;
   }
   .task .task-title strong {
     white-space: nowrap;

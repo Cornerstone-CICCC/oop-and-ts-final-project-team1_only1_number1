@@ -49,11 +49,15 @@ export class Modal {
     modal.id = "task-modal";
 
     if(this.modalType === ModalType.DELETE) {
-      modal.innerHTML = `
+
+      const task = taskService.getAllTasks().find(item => item.id === this.taskId);
+      if (task) {
+        modal.innerHTML = `
         <div class="modal-overlay">
           <div class="modal-delete-filling">
             <div class="modal-task-title">
                 <p>Are you sure to delete this task?</p>
+                <p class="modal-task-name">“${task.name}”</p>
             </div>
             <div class="modal-buttons">
                 <button class="btn" id="delete-task">Delete</button>
@@ -62,6 +66,7 @@ export class Modal {
           </div>
         </div>
       `;
+      }
     } else {
       let data = { name: '', description: '', status: this.status || TaskStatus.TODO, now: '' };
 
@@ -80,6 +85,9 @@ export class Modal {
       modal.innerHTML = `
         <div class="modal">
           <div class="modal-filling ${this.modalType === ModalType.EDIT ? 'edit' : ''}">
+            <div  class="modal-type">
+              <h3>${title}</h3>
+            </div>
             <div class="modal-task-title">
               <input type="text" id="task-name" placeholder="Task Name" value="${data.name}" ${readOnly}>
               <div class="modal-task-title-footer">
@@ -94,7 +102,7 @@ export class Modal {
                 </div>
                 ${this.modalType !== ModalType.ADD ?
                 `<span>Updated: ${data.now}</span>`: ""}
-              </div>    
+              </div>
             </div>
             <div class="modal-info">
               <h4>DETAILS: </h4>
@@ -104,9 +112,6 @@ export class Modal {
               ${this.modalType !== ModalType.VIEW ?
               `<button class="modal-ok-btn btn" id="save-task">Save</button>` : `<button class="modal-ok-btn btn" id="edit-task">Edit <img src="src/assets/edit.svg" alt=""></button>`}
               <button class="modal-edit-cancel-btn btn" id="close-modal">Close</button>
-            </div>
-            <div  class="modal-type">
-              <h3>${title}</h3>
             </div>
           </div>
         </div>

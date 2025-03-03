@@ -1,5 +1,6 @@
 import { dragAndDrop } from "./DragDrop";
 import { Modal } from "./Modal";
+import { movingProgress } from "./Moving";
 
 export enum TaskStatus {
   TODO = "To Do",
@@ -126,6 +127,7 @@ export class TaskManage {
 
     // for drag and drop
     dragAndDrop();
+    movingProgress.movingCharacter();
   }
 
   public generateTaskHtml(status: Task["status"], searchQuery: string = ""): string {
@@ -135,11 +137,11 @@ export class TaskManage {
     const tasks = filteredTasks.map(
       (task) => `<li class="task" data-id=${task.id} draggable="true" data-task>
         <div class="task-title">
-          <strong>${task.name}</strong>
+          <strong class="ellipsis">${task.name}</strong>
         </div>
         <div class="task-cont">
           <div class="task-desc">
-            <p>${task.description}</p>
+            <p class="multi-ellipsis">${task.description}</p>
           </div>
           <div class="task-buttons">
             <button class="delete-task-btn" data-id="${task.id}"><img src="src/assets/delete.svg" alt="delete icon"></button>
@@ -209,4 +211,6 @@ window.addEventListener("load", () => {
   document.getElementById("add-done-button")?.addEventListener("click", () => taskService.openModal("add", TaskStatus.DONE));
 
   taskService.renderTasks();
+
+  movingProgress.initialize(taskService.getAllTasks());
 })

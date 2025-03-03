@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Almarai&family=Anton&family=Bangers&family=Lalezar&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Almarai&family=Anton&family=Bangers&family=Lalezar&display=swap');
 
 
 header {
@@ -33,9 +33,6 @@ header {
     color: red;
     margin-bottom: .8rem;
 }
-.task-name {
-    margin-bottom: .5rem;
-}
 
 @media screen and (max-width: 959px) {
 	header {
@@ -44,19 +41,18 @@ header {
             margin-bottom: 1rem
         }
     }
-   
+
     #search {
         margin: 0 auto;
-        width: 100%; 
+        width: 100%;
     }
 }
 @media screen and (max-width: 480px) {
-   header {
-    padding: .5rem;
-   }
-   #search {
-    height: auto;
+    header {
+        padding: .5rem;
+    }
+    #search {
+        height: auto;
+    }
 }
-}
-    
-      
+

@@ -1,0 +1,45 @@
+<div class="progress-bottom">
+  <div class="progress-character"></div>
+  <div class="progress-ground"></div>
+</div>
+
+<style>
+  .progress-bottom {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    /* height: 50px; */
+    width: 100%;
+  }
+  .progress-character {
+    background: url("./../assets/img-character.png") no-repeat center / 80%;
+    width: 38px;
+    height: 42px;
+    position: absolute;
+    bottom: 38px;
+    left: 0;
+    transition: all 1s ease-in-out;
+  }
+  .progress-character.moving {
+    margin-left: -25px;
+  }
+  .progress-ground {
+    width: 100%;
+    height: 40px;
+    background: url("./../assets/bg-ground.png") repeat-x center / auto 40px;
+  }
+  @media (min-width: 768px) {
+    .progress-ground {
+      height: 60px;
+      background-size: auto 60px;
+    }
+    .progress-character {
+      width: 50px;
+      height: 52px;
+      bottom: 55px;
+    }
+  }
+</style>
+
+<!-- <script src="../ts/Moving.ts"></script> -->
