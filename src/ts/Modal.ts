@@ -49,11 +49,15 @@ export class Modal {
     modal.id = "task-modal";
 
     if(this.modalType === ModalType.DELETE) {
-      modal.innerHTML = `
+
+      const task = taskService.getAllTasks().find(item => item.id === this.taskId);
+      if (task) {
+        modal.innerHTML = `
         <div class="modal-overlay">
           <div class="modal-delete-filling">
             <div class="modal-task-title">
                 <p>Are you sure to delete this task?</p>
+                <p class="modal-task-name">“${task.name}”</p>
             </div>
             <div class="modal-buttons">
                 <button class="btn" id="delete-task">Delete</button>
@@ -62,6 +66,7 @@ export class Modal {
           </div>
         </div>
       `;
+      }
     } else {
       let data = { name: '', description: '', status: this.status || TaskStatus.TODO, now: '' };
 

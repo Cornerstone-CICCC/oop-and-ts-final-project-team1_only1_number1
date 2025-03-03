@@ -172,6 +172,11 @@
     font-weight: bold;
 }
 
+.modal-task-name {
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: 600;
+}
 @media (max-width: 374px) {
     .btn {
         width: 110px;
@@ -199,7 +204,6 @@
     .modal-task-title {
         display: flex;
         justify-content: space-between;
-        gap: 1rem;
     }
 
     .modal-filling .modal-task-title input {

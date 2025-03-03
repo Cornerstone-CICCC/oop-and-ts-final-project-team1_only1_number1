@@ -33,8 +33,6 @@ export class MovingProgress {
   drawingGround() {
     const ground = document.querySelector(".progress-ground");
     const groundLength = (this.progress + this.done) / this.totalTasks;
-
-    console.log(groundLength);
   }
   movingCharacter() {
     this.countTasks();
@@ -43,7 +41,6 @@ export class MovingProgress {
     ) as HTMLDivElement;
     // const characterWidth = character.offsetWidth / 2;
     const characterPosition = (this.done / this.totalTasks) * 100;
-    console.log(this.done, this.progress, characterPosition)
     character!.classList.add("moving");
     character!.style.left = `${characterPosition}%`;
   }
